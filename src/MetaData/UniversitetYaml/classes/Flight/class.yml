@@ -1,0 +1,20 @@
+name: Flight
+description: Flight
+caption: Flight
+attributes:
+  - name: FlightNumber
+    type: string
+    order: 1
+    isNullable: true
+  - name: DepartureTime
+    type: DateTime
+    order: 2
+    isNullable: true
+  - name: ArrivalTime
+    type: DateTime
+    order: 3
+    isNullable: true
+  - name: Status
+    type: tFlightStatus
+    order: 4
+    isNullable: true

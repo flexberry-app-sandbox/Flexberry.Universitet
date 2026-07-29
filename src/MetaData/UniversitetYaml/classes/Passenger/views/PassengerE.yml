@@ -1,0 +1,8 @@
+name: PassengerE
+properties:
+  - name: PassportNumber
+    caption: Passport number
+  - name: FirstName
+    caption: First name
+  - name: LastName
+    caption: Last name

@@ -1,0 +1,12 @@
+name: Airplane
+description: Airplane
+caption: Airplane
+attributes:
+  - name: Wingspan
+    type: double
+    order: 1
+    isNullable: true
+  - name: EngineCount
+    type: int
+    order: 2
+    isNullable: true

@@ -1,0 +1,10 @@
+name: FlightL
+properties:
+  - name: FlightNumber
+    caption: Flight number
+  - name: DepartureTime
+    caption: Departure time
+  - name: ArrivalTime
+    caption: Arrival time
+  - name: Status
+    caption: Status

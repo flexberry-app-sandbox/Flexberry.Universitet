@@ -1,0 +1,12 @@
+name: Airport
+description: Airport
+caption: Airport
+attributes:
+  - name: Code
+    type: string
+    order: 1
+    isNullable: true
+  - name: Name
+    type: string
+    order: 2
+    isNullable: true

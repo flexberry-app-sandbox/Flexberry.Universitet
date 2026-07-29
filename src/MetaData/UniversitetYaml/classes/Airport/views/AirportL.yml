@@ -1,0 +1,6 @@
+name: AirportL
+properties:
+  - name: Code
+    caption: Code
+  - name: Name
+    caption: Name

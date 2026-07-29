@@ -1,0 +1,5 @@
+startClassName: Passenger
+startMultiplicity: 1
+endClassName: Ticket
+endMultiplicity: '*'
+storage: Passenger

@@ -1,0 +1,12 @@
+name: Helicopter
+description: Helicopter
+caption: Helicopter
+attributes:
+  - name: RotorDiameter
+    type: double
+    order: 1
+    isNullable: true
+  - name: MaxAltitude
+    type: double
+    order: 2
+    isNullable: true

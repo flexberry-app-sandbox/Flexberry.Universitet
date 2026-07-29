@@ -1,0 +1,60 @@
+bool:
+  typeName: BOOLEAN
+byte:
+  typeName: SMALLINT
+char:
+  typeName: SMALLINT
+DateTime:
+  typeName: TIMESTAMP(3)
+decimal:
+  typeName: DECIMAL
+double:
+  typeName: DOUBLE PRECISION
+float:
+  typeName: REAL
+geography:
+  typeName: GEOGRAPHY
+geometry:
+  typeName: GEOMETRY
+geometryCollection:
+  typeName: GEOMETRY(GeometryCollection,4326)
+guid:
+  typeName: UUID
+int:
+  typeName: INT
+long:
+  typeName: BIGINT
+multiPoint:
+  typeName: GEOMETRY(MultiPoint,4326)
+multiPolygon:
+  typeName: GEOMETRY(MultiPolygon,4326)
+multiPolyline:
+  typeName: GEOMETRY(MultiLineString,4326)
+NullableDateTime:
+  typeName: TIMESTAMP(3)
+NullableDecimal:
+  typeName: DECIMAL
+NullableInt:
+  typeName: INT
+object:
+  typeName: BYTEA
+point:
+  typeName: GEOMETRY(Point,4326)
+polygon:
+  typeName: GEOMETRY(Polygon,4326)
+polyline:
+  typeName: GEOMETRY(LineString,4326)
+sbyte:
+  typeName: SMALLINT
+short:
+  typeName: SMALLINT
+string:
+  typeName: VARCHAR(255)
+uint:
+  typeName: INT
+ulong:
+  typeName: BIGINT
+ushort:
+  typeName: SMALLINT
+WebFile:
+  typeName: TEXT

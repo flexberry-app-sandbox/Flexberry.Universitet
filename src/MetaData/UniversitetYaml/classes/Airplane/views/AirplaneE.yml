@@ -1,0 +1,12 @@
+name: AirplaneE
+properties:
+  - name: Wingspan
+    caption: Wingspan
+  - name: EngineCount
+    caption: Engine count
+  - name: RegistrationNumber
+    caption: Registration number
+  - name: Model
+    caption: Model
+  - name: Capacity
+    caption: Capacity

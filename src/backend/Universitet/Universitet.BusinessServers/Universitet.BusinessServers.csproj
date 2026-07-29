@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Universitet.BusinessServers</RootNamespace>
+    <AssemblyName>Universitet.BusinessServers</AssemblyName>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <XunitStartupFullName>Universitet.BusinessServers.Startup</XunitStartupFullName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="appsettings.json"><CopyToOutputDirectory>Always</CopyToOutputDirectory></None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NewPlatform.Flexberry.StyleCopRuleset" Version="1.0.0"></PackageReference>
+    <PackageReference Include="NewPlatform.Flexberry.ORM" Version="8.0.0-beta07"></PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Universitet.Objects\Universitet.Objects.csproj"></ProjectReference>
+  </ItemGroup>
+</Project>

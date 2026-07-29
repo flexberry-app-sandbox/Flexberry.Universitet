@@ -1,0 +1,16 @@
+name: TicketE
+properties:
+  - name: TicketNumber
+    caption: Ticket number
+  - name: SeatNumber
+    caption: Seat number
+  - name: Price
+    caption: Price
+  - name: Passenger
+    caption: Passenger
+    isMaster: true
+    lookupType: standard
+    masterPropertyName: PassportNumber
+  - name: Passenger.PassportNumber
+    caption: Passport number
+    visible: false

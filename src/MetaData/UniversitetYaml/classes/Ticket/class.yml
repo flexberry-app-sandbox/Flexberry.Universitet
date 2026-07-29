@@ -1,0 +1,16 @@
+name: Ticket
+description: Ticket
+caption: Ticket
+attributes:
+  - name: TicketNumber
+    type: string
+    order: 1
+    isNullable: true
+  - name: SeatNumber
+    type: string
+    order: 2
+    isNullable: true
+  - name: Price
+    type: double
+    order: 3
+    isNullable: true

@@ -1,0 +1,21 @@
+name: Aircraft
+description: Aircraft
+stored: false
+caption: Aircraft
+attributes:
+  - name: RegistrationNumber
+    type: string
+    order: 1
+    isNullable: true
+  - name: Model
+    type: string
+    order: 2
+    isNullable: true
+  - name: Capacity
+    type: int
+    order: 3
+    isNullable: true
+  - name: ffff
+    type: int
+    order: 4
+    isNullable: true

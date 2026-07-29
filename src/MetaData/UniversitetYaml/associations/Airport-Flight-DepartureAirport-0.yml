@@ -1,0 +1,6 @@
+startClassName: Airport
+startRole: DepartureAirport
+startMultiplicity: 1
+endClassName: Flight
+endMultiplicity: '*'
+storage: DepartureAirport

@@ -1,0 +1,16 @@
+name: Passenger
+description: Passenger
+caption: Passenger
+attributes:
+  - name: PassportNumber
+    type: string
+    order: 1
+    isNullable: true
+  - name: FirstName
+    type: string
+    order: 2
+    isNullable: true
+  - name: LastName
+    type: string
+    order: 3
+    isNullable: true

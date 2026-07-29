@@ -1,0 +1,59 @@
+bool:
+  typeName: NUMBER(1)
+byte:
+  typeName: NUMBER(3)
+char:
+  typeName: NUMBER(3)
+DateTime:
+  typeName: DATE
+decimal:
+  typeName: NUMBER(38)
+double:
+  typeName: FLOAT(126)
+float:
+  typeName: FLOAT(53)
+geography: {}
+geometry:
+  typeName: SDO_GEOMETRY
+geometryCollection:
+  typeName: SDO_GEOMETRY(2004,4326,NULL,NULL,NULL)
+guid:
+  typeName: RAW(16)
+int:
+  typeName: NUMBER(10)
+long:
+  typeName: NUMBER(20)
+multiPoint:
+  typeName: SDO_GEOMETRY(2005,4326,NULL,NULL,NULL)
+multiPolygon:
+  typeName: SDO_GEOMETRY(2007,4326,NULL,NULL,NULL)
+multiPolyline:
+  typeName: SDO_GEOMETRY(2006,4326,NULL,NULL,NULL)
+NullableDateTime:
+  typeName: DATE
+NullableDecimal:
+  typeName: NUMBER(38)
+NullableInt:
+  typeName: NUMBER(10)
+object:
+  typeName: RAW(255)
+point:
+  typeName: SDO_GEOMETRY(2001,4326,NULL,NULL,NULL)
+polygon:
+  typeName: SDO_GEOMETRY(2003,4326,NULL,NULL,NULL)
+polyline:
+  typeName: SDO_GEOMETRY(2002,4326,NULL,NULL,NULL)
+sbyte:
+  typeName: NUMBER(3)
+short:
+  typeName: NUMBER(5)
+string:
+  typeName: VARCHAR2(255)
+uint:
+  typeName: NUMBER(10)
+ulong:
+  typeName: NUMBER(20)
+ushort:
+  typeName: NUMBER(5)
+WebFile:
+  typeName: NCLOB

@@ -1,0 +1,6 @@
+type: Aggregation
+startClassName: Flight
+startMultiplicity: 1
+endClassName: Ticket
+endMultiplicity: '*'
+storage: Flight

@@ -1,0 +1,12 @@
+name: HelicopterL
+properties:
+  - name: RotorDiameter
+    caption: Rotor diameter
+  - name: MaxAltitude
+    caption: Max altitude
+  - name: RegistrationNumber
+    caption: Registration number
+  - name: Model
+    caption: Model
+  - name: Capacity
+    caption: Capacity

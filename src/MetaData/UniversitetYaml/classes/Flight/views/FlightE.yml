@@ -1,0 +1,28 @@
+name: FlightE
+properties:
+  - name: FlightNumber
+    caption: Flight number
+  - name: DepartureTime
+    caption: Departure time
+  - name: ArrivalTime
+    caption: Arrival time
+  - name: Status
+    caption: Status
+  - name: Aircraft
+    caption: Aircraft
+    isMaster: true
+    lookupType: standard
+    masterPropertyName: RegistrationNumber
+  - name: Aircraft.RegistrationNumber
+    visible: false
+  - name: DepartureAirport
+    caption: DepartureAirport
+    isMaster: true
+    lookupType: standard
+    masterPropertyName: Code
+  - name: DepartureAirport.Code
+    visible: false
+details:
+  - name: Ticket
+    viewName: TicketE
+    caption: Ticket

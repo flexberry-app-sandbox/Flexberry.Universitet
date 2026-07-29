@@ -1,0 +1,32 @@
+name: tFlightStatus
+stereotype: «enumeration»
+description: T flight status
+caption: T flight status
+attributes:
+  - name: SCHEDULED
+    order: 1
+    isNullable: true
+  - name: BOARDING
+    order: 2
+    isNullable: true
+  - name: DEPARTED
+    order: 3
+    isNullable: true
+  - name: IN_AIR
+    order: 4
+    isNullable: true
+  - name: LANDED
+    order: 5
+    isNullable: true
+  - name: ARRIVED
+    order: 6
+    isNullable: true
+  - name: DELAYED
+    order: 7
+    isNullable: true
+  - name: CANCELLED
+    order: 8
+    isNullable: true
+  - name: DIVERTED
+    order: 9
+    isNullable: true
