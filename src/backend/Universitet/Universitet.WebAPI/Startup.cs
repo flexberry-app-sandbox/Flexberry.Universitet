@@ -149,8 +149,11 @@ namespace Universitet.WebAPI
             container.RegisterType<IAircraftService, AircraftService>();
             container.RegisterType<IAirplaneService, AirplaneService>();
             container.RegisterType<IAirportService, AirportService>();
+            container.RegisterType<IAssosiationClassService, AssosiationClassService>();
+            container.RegisterType<IClassService, ClassService>();
             container.RegisterType<IFlightService, FlightService>();
             container.RegisterType<IHelicopterService, HelicopterService>();
+            container.RegisterType<IInheritanceClassService, InheritanceClassService>();
             container.RegisterType<IPassengerService, PassengerService>();
             container.RegisterType<ITicketService, TicketService>();
 

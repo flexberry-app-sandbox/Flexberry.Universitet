@@ -184,7 +184,6 @@ namespace Universitet.ApplicationLayer.Services
 
             // *** Start programmer edit section *** (HelicopterE before create validation)
 
-
             // *** End programmer edit section *** (HelicopterE before create validation)
 
             Helicopter entity = new Helicopter();
@@ -193,7 +192,6 @@ namespace Universitet.ApplicationLayer.Services
             List<DataObject> updatedObjects = new () { entity };
 
             // *** Start programmer edit section *** (HelicopterE before create)
-
 
             // *** End programmer edit section *** (HelicopterE before create)
 
@@ -229,7 +227,6 @@ namespace Universitet.ApplicationLayer.Services
 
             // *** Start programmer edit section *** (HelicopterE before update validation)
 
-
             // *** End programmer edit section *** (HelicopterE before update validation)
 
             Helicopter entity = await LoadExisting(dto.Id, DataViewAttribute.GetView<HelicopterEDto>());
@@ -238,7 +235,6 @@ namespace Universitet.ApplicationLayer.Services
             List<DataObject> updatedObjects = new () { entity };
 
             // *** Start programmer edit section *** (HelicopterE before update)
-
 
             // *** End programmer edit section *** (HelicopterE before update)
 

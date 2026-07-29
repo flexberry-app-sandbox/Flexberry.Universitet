@@ -1,0 +1,5 @@
+startClassName: AssosiationClass
+startMultiplicity: 1
+endClassName: Class
+endMultiplicity: '*'
+storage: AssosiationClass

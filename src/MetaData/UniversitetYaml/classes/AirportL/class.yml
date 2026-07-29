@@ -6,5 +6,6 @@ formViews:
   - viewName: AirportL
     viewClassName: Airport
     dataObjectTypes:
-      - newContainerName: AirportE
+      - className: Airport
+        newContainerName: AirportE
         editContainerName: AirportE

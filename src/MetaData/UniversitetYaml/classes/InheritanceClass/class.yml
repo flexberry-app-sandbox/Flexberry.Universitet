@@ -1,0 +1,7 @@
+name: InheritanceClass
+caption: InheritanceClass
+attributes:
+  - name: Inheritance
+    type: string
+    order: 1
+    isNullable: true

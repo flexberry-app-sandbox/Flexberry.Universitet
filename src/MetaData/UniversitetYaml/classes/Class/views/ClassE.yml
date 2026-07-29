@@ -1,0 +1,9 @@
+name: ClassE
+properties:
+  - name: Address
+    caption: Address
+  - name: Name
+    caption: Name
+  - name: AssosiationClass
+    caption: AssosiationClass
+    isMaster: true

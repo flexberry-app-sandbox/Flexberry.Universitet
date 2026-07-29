@@ -1,0 +1,13 @@
+name: Class
+caption: Class
+attributes:
+  - name: Address
+    type: string
+    order: 1
+    isNullable: true
+    caption: Адрес
+  - name: Name
+    type: string
+    order: 2
+    isNullable: true
+    caption: Имя

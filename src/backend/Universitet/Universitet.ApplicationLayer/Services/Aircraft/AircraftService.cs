@@ -184,7 +184,6 @@ namespace Universitet.ApplicationLayer.Services
 
             // *** Start programmer edit section *** (AircraftE before create validation)
 
-
             // *** End programmer edit section *** (AircraftE before create validation)
 
             Aircraft entity = new Aircraft();
@@ -193,7 +192,6 @@ namespace Universitet.ApplicationLayer.Services
             List<DataObject> updatedObjects = new () { entity };
 
             // *** Start programmer edit section *** (AircraftE before create)
-
 
             // *** End programmer edit section *** (AircraftE before create)
 
@@ -229,7 +227,6 @@ namespace Universitet.ApplicationLayer.Services
 
             // *** Start programmer edit section *** (AircraftE before update validation)
 
-
             // *** End programmer edit section *** (AircraftE before update validation)
 
             Aircraft entity = await LoadExisting(dto.Id, DataViewAttribute.GetView<AircraftEDto>());
@@ -238,7 +235,6 @@ namespace Universitet.ApplicationLayer.Services
             List<DataObject> updatedObjects = new () { entity };
 
             // *** Start programmer edit section *** (AircraftE before update)
-
 
             // *** End programmer edit section *** (AircraftE before update)
 

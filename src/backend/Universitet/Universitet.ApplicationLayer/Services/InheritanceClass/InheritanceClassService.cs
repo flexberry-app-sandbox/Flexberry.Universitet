@@ -20,7 +20,7 @@ namespace Universitet.ApplicationLayer.Services
     using Universitet;
     using Universitet.ApplicationLayer.Attributes;
     using Universitet.ApplicationLayer.DTO;
-    using Universitet.ApplicationLayer.DTO.Flight;
+    using Universitet.ApplicationLayer.DTO.InheritanceClass;
     using Universitet.ApplicationLayer.Helpers;
     using Universitet.ApplicationLayer.Mapping;
 
@@ -29,9 +29,9 @@ namespace Universitet.ApplicationLayer.Services
     // *** End programmer edit section *** (Using statements)
 
     /// <summary>
-    /// Сервис для работы с <see cref="Flight"/>.
+    /// Сервис для работы с <see cref="InheritanceClass"/>.
     /// </summary>
-    public partial class FlightService : IFlightService
+    public partial class InheritanceClassService : IInheritanceClassService
     {
         private readonly IDataService _dataService;
         private readonly ServiceHelper _serviceHelper;
@@ -41,11 +41,11 @@ namespace Universitet.ApplicationLayer.Services
         // *** End programmer edit section *** (Custom properties)
 
         /// <summary>
-        /// Инициализирует новый экземпляр <see cref="FlightService"/>.
+        /// Инициализирует новый экземпляр <see cref="InheritanceClassService"/>.
         /// </summary>
         /// <param name="dataService">Сервис доступа к данным.</param>
         /// <param name="serviceHelper">Инструменты для сервисов.</param>
-        public FlightService(IDataService dataService, ServiceHelper serviceHelper)
+        public InheritanceClassService(IDataService dataService, ServiceHelper serviceHelper)
         {
             _dataService = dataService;
             _serviceHelper = serviceHelper;
@@ -57,11 +57,11 @@ namespace Universitet.ApplicationLayer.Services
 
         /// <inheritdoc/>
         public async Task<LoadingCustomizationStruct> BuildLcs<TDto>(int? perPage = null, int? page = null, string[]? sorting = null, FilterDtoBase? filter = null)
-            where TDto : FlightDtoBase, new()
+            where TDto : InheritanceClassDtoBase, new()
         {
             View currentView = DataViewAttribute.GetView<TDto>();
 
-            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Flight), currentView);
+            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(InheritanceClass), currentView);
 
             List<ColumnsSortDef> sortDefs = new List<ColumnsSortDef>();
             if (sorting != null && sorting.Length > 0)
@@ -93,16 +93,16 @@ namespace Universitet.ApplicationLayer.Services
                 lcs.LimitFunction = limit;
             }
 
-            // *** Start programmer edit section *** (FlightService BuildLcs)
+            // *** Start programmer edit section *** (InheritanceClassService BuildLcs)
 
-            // *** End programmer edit section *** (FlightService BuildLcs)
+            // *** End programmer edit section *** (InheritanceClassService BuildLcs)
 
             return lcs;
         }
 
         /// <inheritdoc/>
         public async Task<IEnumerable<TDto>> GetAll<TDto>(int? perPage = null, int? page = null, string[] sorting = null, FilterDtoBase? filter = null)
-            where TDto : FlightDtoBase, new()
+            where TDto : InheritanceClassDtoBase, new()
         {
             // *** Start programmer edit section *** (GetAll view tuning)
 
@@ -121,30 +121,30 @@ namespace Universitet.ApplicationLayer.Services
             // *** End programmer edit section *** (GetAll after load)
 
             return dataObjects
-                .OfType<Flight>()
+                .OfType<InheritanceClass>()
                 .Select(x => x.MapToDto<TDto>())
                 .ToList();
         }
 
         /// <inheritdoc/>
         public async Task<TDto> GetById<TDto>(Guid id)
-            where TDto : FlightDtoBase, new()
+            where TDto : InheritanceClassDtoBase, new()
         {
-            Flight entity = await LoadExisting(id, DataViewAttribute.GetView<TDto>());
+            InheritanceClass entity = await LoadExisting(id, DataViewAttribute.GetView<TDto>());
             return entity.MapToDto<TDto>();
         }
 
         /// <inheritdoc/>
         public async Task<TDto?> GetOrDefaultById<TDto>(Guid id)
-            where TDto : FlightDtoBase, new()
+            where TDto : InheritanceClassDtoBase, new()
         {
-            Flight? entity = await LoadNullable(id, DataViewAttribute.GetView<TDto>());
+            InheritanceClass? entity = await LoadNullable(id, DataViewAttribute.GetView<TDto>());
             return entity?.MapToDto<TDto>();
         }
 
         /// <inheritdoc/>
         public async Task<int> Count<TDto>(FilterDtoBase? filter = null)
-            where TDto : FlightDtoBase, new()
+            where TDto : InheritanceClassDtoBase, new()
         {
             View currentView = DataViewAttribute.GetView<TDto>();
 
@@ -152,7 +152,7 @@ namespace Universitet.ApplicationLayer.Services
 
             // *** End programmer edit section *** (Count view tuning)
 
-            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(Flight), currentView);
+            LoadingCustomizationStruct lcs = LoadingCustomizationStruct.GetSimpleStruct(typeof(InheritanceClass), currentView);
 
             Function? limit = await GetLimitFunction(filter);
             if (limit != null)
@@ -167,98 +167,6 @@ namespace Universitet.ApplicationLayer.Services
             return _dataService.GetObjectsCount(lcs);
         }
 
-        /// <inheritdoc/>
-        public async Task<Flight> Create(FlightEDto dto)
-        {
-            if (dto == null)
-            {
-                LogService.LogError("Не передано DTO при создании Flight.");
-                throw new ArgumentNullException(nameof(dto));
-            }
-
-            if (dto.Id == Guid.Empty)
-            {
-                LogService.LogError("Id не может быть пустым при создании Flight.");
-                throw new ArgumentException("Id не может быть пустым при создании Flight.");
-            }
-
-            // *** Start programmer edit section *** (FlightE before create validation)
-
-            // *** End programmer edit section *** (FlightE before create validation)
-
-            Flight entity = new Flight();
-            entity.UpdateFromDto(dto);
-
-            List<DataObject> updatedObjects = new () { entity };
-
-            // *** Start programmer edit section *** (FlightE before create)
-
-            // *** End programmer edit section *** (FlightE before create)
-
-            try
-            {
-                if (updatedObjects.Count == 1)
-                {
-                    _dataService.UpdateObject(updatedObjects[0]);
-                }
-                else
-                {
-                    DataObject[] upd = updatedObjects.ToArray();
-                    _dataService.UpdateObjects(ref upd);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogService.LogError("Произошла ошибка при создании Flight.", ex);
-                throw new Exception($"Произошла ошибка при создании Flight. {ex.Message}");
-            }
-
-            return await LoadExisting(dto.Id, DataViewAttribute.GetView<FlightEDto>());
-        }
-
-        /// <inheritdoc/>
-        public async Task<Flight> Update(FlightEDto dto)
-        {
-            if (dto == null)
-            {
-                LogService.LogError("Не передано DTO для обновления Flight.");
-                throw new ArgumentNullException(nameof(dto));
-            }
-
-            // *** Start programmer edit section *** (FlightE before update validation)
-
-            // *** End programmer edit section *** (FlightE before update validation)
-
-            Flight entity = await LoadExisting(dto.Id, DataViewAttribute.GetView<FlightEDto>());
-            entity.UpdateFromDto(dto);
-
-            List<DataObject> updatedObjects = new () { entity };
-
-            // *** Start programmer edit section *** (FlightE before update)
-
-            // *** End programmer edit section *** (FlightE before update)
-
-            try
-            {
-                if (updatedObjects.Count == 1)
-                {
-                    _dataService.UpdateObject(updatedObjects[0]);
-                }
-                else
-                {
-                    DataObject[] upd = updatedObjects.ToArray();
-                    _dataService.UpdateObjects(ref upd);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogService.LogError($"Произошла ошибка при обновлении Flight с Id {dto.Id}.", ex);
-                throw new Exception($"Произошла ошибка при обновлении Flight. {ex.Message}");
-            }
-
-            return await LoadExisting(dto.Id, DataViewAttribute.GetView<FlightEDto>());
-        }
-
         /// <summary>
         /// Получить список удаляемых объектов, в том числе связанных объектов, которые нужно удалить вместе с основным.
         /// Например детейлы, исторические данные и т.п.
@@ -268,10 +176,9 @@ namespace Universitet.ApplicationLayer.Services
         private async Task<DataObject[]> GetObjectsForDelete(Guid id)
         {
             // *** Start programmer edit section *** (objects for delete validation)
-
             // *** End programmer edit section *** (objects for delete validation)
 
-            Flight entity = await LoadExisting(id);
+            InheritanceClass entity = await LoadExisting(id);
             List<DataObject> listForDelete = new List<DataObject>() { entity };
 
             // *** Start programmer edit section *** (objects for delete)
@@ -340,15 +247,15 @@ namespace Universitet.ApplicationLayer.Services
         /// </summary>
         /// <param name="id">Идентификатор объекта.</param>
         /// <param name="view">Необязательное представление данных.</param>
-        /// <returns>Загруженный объект <see cref="Flight"/>.</returns>
-        private async Task<Flight> LoadExisting(Guid id, View? view = null)
+        /// <returns>Загруженный объект <see cref="InheritanceClass"/>.</returns>
+        private async Task<InheritanceClass> LoadExisting(Guid id, View? view = null)
         {
             if (id == Guid.Empty)
             {
                 throw new ArgumentException("Id не может быть пустым.", nameof(id));
             }
 
-            Flight entity = new Flight();
+            InheritanceClass entity = new InheritanceClass();
             entity.SetExistObjectPrimaryKey(id);
 
             try
@@ -368,12 +275,12 @@ namespace Universitet.ApplicationLayer.Services
             }
             catch (CantFindDataObjectException)
             {
-                throw new KeyNotFoundException($"Flight с Id={id} не найден.");
+                throw new KeyNotFoundException($"InheritanceClass с Id={id} не найден.");
             }
 
             if (entity.GetStatus() == ObjectStatus.Deleted)
             {
-                throw new InvalidOperationException($"Flight с Id={id} уже удалён.");
+                throw new InvalidOperationException($"InheritanceClass с Id={id} уже удалён.");
             }
 
             return entity;
@@ -384,15 +291,15 @@ namespace Universitet.ApplicationLayer.Services
         /// </summary>
         /// <param name="id">Идентификатор объекта.</param>
         /// <param name="view">Необязательное представление данных.</param>
-        /// <returns>Загруженный объект <see cref="Flight"/>.</returns>
-        private async Task<Flight?> LoadNullable(Guid id, View? view = null)
+        /// <returns>Загруженный объект <see cref="InheritanceClass"/>.</returns>
+        private async Task<InheritanceClass?> LoadNullable(Guid id, View? view = null)
         {
             if (id == Guid.Empty)
             {
                 throw new ArgumentException("Id не может быть пустым.", nameof(id));
             }
 
-            Flight entity = new Flight();
+            InheritanceClass entity = new InheritanceClass();
             entity.SetExistObjectPrimaryKey(id);
 
             try

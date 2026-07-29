@@ -37,6 +37,23 @@ CREATE TABLE Helicopter (
  PRIMARY KEY (primaryKey));
 
 
+CREATE TABLE InheritanceClass (
+ primaryKey UUID NOT NULL,
+ Inheritance VARCHAR(255) NULL,
+ Address VARCHAR(255) NULL,
+ Name VARCHAR(255) NULL,
+ AssosiationClass UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE Class (
+ primaryKey UUID NOT NULL,
+ Address VARCHAR(255) NULL,
+ Name VARCHAR(255) NULL,
+ AssosiationClass UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
 CREATE TABLE Passenger (
  primaryKey UUID NOT NULL,
  FirstName VARCHAR(255) NULL,
@@ -59,6 +76,12 @@ CREATE TABLE Ticket (
  TicketNumber VARCHAR(255) NULL,
  Passenger UUID NOT NULL,
  Flight UUID NOT NULL,
+ PRIMARY KEY (primaryKey));
+
+
+CREATE TABLE AssosiationClass (
+ primaryKey UUID NOT NULL,
+ AssosiationName VARCHAR(255) NULL,
  PRIMARY KEY (primaryKey));
 
 
@@ -174,6 +197,12 @@ CREATE INDEX Index5352f21537c6713c5fa590a541ddc312c79b7952 on Flight (Aircraft_m
 
  ALTER TABLE Flight ADD CONSTRAINT FK8cef17ef4f4a7740e1bba07927c79eeea9e4b212 FOREIGN KEY (DepartureAirport) REFERENCES Airport; 
 CREATE INDEX Index8cef17ef4f4a7740e1bba07927c79eeea9e4b212 on Flight (DepartureAirport); 
+
+ ALTER TABLE InheritanceClass ADD CONSTRAINT FK606c7d89361aeb6453390c2dd7d9baa14305908a FOREIGN KEY (AssosiationClass) REFERENCES AssosiationClass; 
+CREATE INDEX Index606c7d89361aeb6453390c2dd7d9baa14305908a on InheritanceClass (AssosiationClass); 
+
+ ALTER TABLE Class ADD CONSTRAINT FK38354ca86ee9149cc5c514ec297e3f4aeb8b963a FOREIGN KEY (AssosiationClass) REFERENCES AssosiationClass; 
+CREATE INDEX Index38354ca86ee9149cc5c514ec297e3f4aeb8b963a on Class (AssosiationClass); 
 
  ALTER TABLE Ticket ADD CONSTRAINT FK1c2f33828a87f07e8ce79237270776c557052f52 FOREIGN KEY (Passenger) REFERENCES Passenger; 
 CREATE INDEX Index1c2f33828a87f07e8ce79237270776c557052f52 on Ticket (Passenger); 

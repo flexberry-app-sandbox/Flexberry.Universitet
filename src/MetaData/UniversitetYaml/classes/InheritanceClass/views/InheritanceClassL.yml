@@ -1,0 +1,8 @@
+name: InheritanceClassL
+properties:
+  - name: Address
+    caption: Address
+  - name: Inheritance
+    caption: Inheritance
+  - name: Name
+    caption: Name

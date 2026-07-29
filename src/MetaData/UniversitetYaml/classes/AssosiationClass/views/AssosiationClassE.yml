@@ -1,0 +1,4 @@
+name: AssosiationClassE
+properties:
+  - name: AssosiationName
+    caption: AssosiationName

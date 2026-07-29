@@ -1,0 +1,6 @@
+name: AssosiationClass
+attributes:
+  - name: AssosiationName
+    type: string
+    order: 1
+    isNullable: true

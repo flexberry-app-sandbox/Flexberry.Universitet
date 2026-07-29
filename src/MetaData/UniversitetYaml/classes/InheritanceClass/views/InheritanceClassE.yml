@@ -1,0 +1,5 @@
+name: InheritanceClassE
+properties:
+  - name: Name
+  - name: Address
+  - name: Inheritance
