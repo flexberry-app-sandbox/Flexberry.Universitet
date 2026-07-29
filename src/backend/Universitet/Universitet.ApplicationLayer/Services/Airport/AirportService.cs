@@ -167,6 +167,102 @@ namespace Universitet.ApplicationLayer.Services
             return _dataService.GetObjectsCount(lcs);
         }
 
+        /// <inheritdoc/>
+        public async Task<Airport> Create(AirportEDto dto)
+        {
+            if (dto == null)
+            {
+                LogService.LogError("Не передано DTO при создании Airport.");
+                throw new ArgumentNullException(nameof(dto));
+            }
+
+            if (dto.Id == Guid.Empty)
+            {
+                LogService.LogError("Id не может быть пустым при создании Airport.");
+                throw new ArgumentException("Id не может быть пустым при создании Airport.");
+            }
+
+            // *** Start programmer edit section *** (AirportE before create validation)
+
+
+            // *** End programmer edit section *** (AirportE before create validation)
+
+            Airport entity = new Airport();
+            entity.UpdateFromDto(dto);
+
+            List<DataObject> updatedObjects = new () { entity };
+
+            // *** Start programmer edit section *** (AirportE before create)
+
+
+            // *** End programmer edit section *** (AirportE before create)
+
+            try
+            {
+                if (updatedObjects.Count == 1)
+                {
+                    _dataService.UpdateObject(updatedObjects[0]);
+                }
+                else
+                {
+                    DataObject[] upd = updatedObjects.ToArray();
+                    _dataService.UpdateObjects(ref upd);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Произошла ошибка при создании Airport.", ex);
+                throw new Exception($"Произошла ошибка при создании Airport. {ex.Message}");
+            }
+
+            return await LoadExisting(dto.Id, DataViewAttribute.GetView<AirportEDto>());
+        }
+
+        /// <inheritdoc/>
+        public async Task<Airport> Update(AirportEDto dto)
+        {
+            if (dto == null)
+            {
+                LogService.LogError("Не передано DTO для обновления Airport.");
+                throw new ArgumentNullException(nameof(dto));
+            }
+
+            // *** Start programmer edit section *** (AirportE before update validation)
+
+
+            // *** End programmer edit section *** (AirportE before update validation)
+
+            Airport entity = await LoadExisting(dto.Id, DataViewAttribute.GetView<AirportEDto>());
+            entity.UpdateFromDto(dto);
+
+            List<DataObject> updatedObjects = new () { entity };
+
+            // *** Start programmer edit section *** (AirportE before update)
+
+
+            // *** End programmer edit section *** (AirportE before update)
+
+            try
+            {
+                if (updatedObjects.Count == 1)
+                {
+                    _dataService.UpdateObject(updatedObjects[0]);
+                }
+                else
+                {
+                    DataObject[] upd = updatedObjects.ToArray();
+                    _dataService.UpdateObjects(ref upd);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError($"Произошла ошибка при обновлении Airport с Id {dto.Id}.", ex);
+                throw new Exception($"Произошла ошибка при обновлении Airport. {ex.Message}");
+            }
+
+            return await LoadExisting(dto.Id, DataViewAttribute.GetView<AirportEDto>());
+        }
+
         /// <summary>
         /// Получить список удаляемых объектов, в том числе связанных объектов, которые нужно удалить вместе с основным.
         /// Например детейлы, исторические данные и т.п.

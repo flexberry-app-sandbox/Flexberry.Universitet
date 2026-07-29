@@ -7,6 +7,18 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
+      {
+        source: '/airport-l',
+        destination: '/AirportL',
+      },
+      {
+        source: '/airport-l/:id',
+        destination: '/AirportL/:id',
+      },
+      {
+        source: '/airport-l/new',
+        destination: '/AirportL/new',
+      },
     ];
   },
 };

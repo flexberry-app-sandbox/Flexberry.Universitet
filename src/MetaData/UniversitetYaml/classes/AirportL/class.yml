@@ -1,0 +1,10 @@
+name: AirportL
+stereotype: «listform»
+description: Airport
+caption: Airport
+formViews:
+  - viewName: AirportL
+    viewClassName: Airport
+    dataObjectTypes:
+      - newContainerName: AirportE
+        editContainerName: AirportE

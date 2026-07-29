@@ -14,6 +14,7 @@ namespace Universitet.WebAPI.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Unity;
     using Universitet.ApplicationLayer.DTO;
+    using Universitet.ApplicationLayer.DTO.Airport;
     using Universitet.ApplicationLayer.ExportProviders;
 
     /// <summary>
@@ -28,6 +29,41 @@ namespace Universitet.WebAPI.Controllers
         public ExportController(IUnityContainer container)
         {
             _container = container;
+        }
+
+        /// <summary>
+        /// Экспорт AirportL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("AirportL")]
+        public async Task<IActionResult> ExportAirportL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] AirportLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<AirportDtoBase> provider = _container.Resolve<IExcelExportProvider<AirportDtoBase>>("AirportLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<AirportLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "AirportL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -90,11 +90,12 @@ namespace Universitet.WebAPI.Controllers
         /// <param name="perPage">Элементов на странице.</param>
         /// <param name="page">Текущая страница.</param>
         /// <param name="sorting">Сортировка.</param>
+        /// <param name="filter">Фильтр.</param>
         /// <returns>Список объектов.</returns>
         [HttpGet("AirportL")]
-        public async Task<ActionResult<GetAllRequestResult<AirportLDto>>> GetAllAirportL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null)
+        public async Task<ActionResult<GetAllRequestResult<AirportLDto>>> GetAllAirportL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null, [FromQuery] AirportLFilterDto filter = null)
         {
-            return await GetAll<AirportLDto>(perPage, page, sorting);
+            return await GetAll<AirportLDto>(perPage, page, sorting, filter);
         }
 
         /// <summary>
@@ -116,6 +117,85 @@ namespace Universitet.WebAPI.Controllers
         public async Task<ActionResult<int>> GetCountAirportL()
         {
             return await GetCount<AirportLDto>();
+        }
+
+        /// <summary>
+        /// Создать новый Airport в форме AirportEDto.
+        /// </summary>
+        /// <param name="dto">DTO с данными для создания.</param>
+        /// <returns>Созданный <see cref="AirportEDto"/>.</returns>
+        [HttpPost("AirportE")]
+        public async Task<ActionResult<AirportEDto>> CreateAirportE([FromBody] AirportEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Airport created = await _airportService.Create(dto);
+                AirportEDto createdDto = new AirportEDto(created);
+
+                return CreatedAtAction(nameof(GetByIdAirportE), new { id = createdDto.Id }, createdDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при создании Airport", ex);
+
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Обновить или создать Airport в форме AirportEDto.
+        /// </summary>
+        /// <param name="dto">DTO с новыми данными.</param>
+        /// <returns>Обновленный Airport.</returns>
+        [HttpPut("AirportE")]
+        public async Task<ActionResult<AirportEDto>> UpdateAirportE([FromBody] AirportEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                AirportEDto existed = await _airportService.GetOrDefaultById<AirportEDto>(dto.Id);
+                Airport createdOrUpdated = new ();
+
+                if (existed == null)
+                {
+                    createdOrUpdated = await _airportService.Create(dto);
+                }
+                else
+                {
+                    createdOrUpdated = await _airportService.Update(dto);
+                }
+
+                AirportEDto updatedDto = new (createdOrUpdated);
+
+                return Ok(updatedDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при обновлении Airport", ex);
+
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>

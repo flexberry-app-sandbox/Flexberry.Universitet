@@ -1,0 +1,7 @@
+name: AirportE
+stereotype: «editform»
+description: Airport
+caption: Airport
+formViews:
+  - viewName: AirportE
+    viewClassName: Airport

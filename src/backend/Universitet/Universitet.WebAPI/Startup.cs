@@ -20,6 +20,7 @@ namespace Universitet.WebAPI
     using Swashbuckle.AspNetCore.SwaggerUI;
     using Unity;
     using Unity.Lifetime;
+    using Universitet.ApplicationLayer.DTO.Airport;
     using Universitet.ApplicationLayer.ExportProviders;
     using Universitet.ApplicationLayer.Helpers;
     using Universitet.ApplicationLayer.Services;
@@ -148,6 +149,7 @@ namespace Universitet.WebAPI
             container.RegisterType<IPassengerService, PassengerService>();
             container.RegisterType<ITicketService, TicketService>();
 
+            container.RegisterType<IExcelExportProvider<AirportDtoBase>, AirportLExportProvider>("AirportLExportProvider");
 
             container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
             container.RegisterSingleton<IUserSettingsService, UserSettingsService>();

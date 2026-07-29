@@ -84,3 +84,13 @@ primitives:
       - 880, 100
       - 669, 132
     font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AirportE
+    position: 150, 210
+    size: 92, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AirportL
+    position: 450, 210
+    size: 87, 34
+    font: DejaVu Sans 9pt
