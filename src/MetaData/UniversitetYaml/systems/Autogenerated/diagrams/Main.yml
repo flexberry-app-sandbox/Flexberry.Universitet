@@ -1,0 +1,86 @@
+diagramType: CAD
+name: Main
+primitives:
+  - type: CADClass
+    caseName: Airport
+    position: 256, 84
+    size: 107, 104
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Flight
+    position: 540, 83
+    size: 176, 104
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Ticket
+    position: 534, 266
+    size: 149, 91
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Passenger
+    position: 251, 266
+    size: 165, 104
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: tFlightStatus
+    position: 23, 23
+    size: 115, 170
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: /Aircraft
+    position: 844, 84
+    size: 181, 104
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Airplane
+    position: 795, 272
+    size: 135, 78
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Helicopter
+    position: 953, 274
+    size: 159, 78
+    font: DejaVu Sans 9pt
+  - type: Composition
+    startPrimitive: Flight
+    endPrimitive: Ticket
+    points:
+      - 620, 150
+      - 620, 290
+    font: DejaVu Sans 9pt
+  - type: Association
+    startPrimitive: Passenger
+    endPrimitive: Ticket
+    points:
+      - 410, 310
+      - 540, 310
+    font: DejaVu Sans 9pt
+  - type: Inheritance
+    startPrimitive: /Aircraft
+    endPrimitive: Airplane
+    points:
+      - 940, 140
+      - 860, 280
+    font: DejaVu Sans 9pt
+  - type: Inheritance
+    startPrimitive: /Aircraft
+    endPrimitive: Helicopter
+    points:
+      - 960, 170
+      - 1040, 280
+    font: DejaVu Sans 9pt
+  - type: Association
+    startPrimitive: Airport
+    endPrimitive: Flight
+    startRole: +DepartureAirport
+    points:
+      - 360, 90
+      - 540, 90
+    font: DejaVu Sans 9pt
+  - type: Association
+    startPrimitive: /Aircraft
+    endPrimitive: Flight
+    points:
+      - 880, 100
+      - 669, 132
+    font: DejaVu Sans 9pt
