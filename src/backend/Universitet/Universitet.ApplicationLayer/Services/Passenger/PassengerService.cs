@@ -176,7 +176,6 @@ namespace Universitet.ApplicationLayer.Services
         private async Task<DataObject[]> GetObjectsForDelete(Guid id)
         {
             // *** Start programmer edit section *** (objects for delete validation)
-
             // Проверка, есть ли такие Ticket, которые ссылаются на удаляемый Passenger.
             _serviceHelper.CheckRelation<Passenger, Ticket>(
                 id,

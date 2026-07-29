@@ -176,7 +176,6 @@ namespace Universitet.ApplicationLayer.Services
         private async Task<DataObject[]> GetObjectsForDelete(Guid id)
         {
             // *** Start programmer edit section *** (objects for delete validation)
-
             // Проверка, есть ли такие Flight, которые ссылаются на удаляемый Aircraft.
             _serviceHelper.CheckRelation<Aircraft, Flight>(
                 id,
