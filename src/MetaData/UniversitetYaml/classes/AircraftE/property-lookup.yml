@@ -1,0 +1,3 @@
+lookups:
+  - propertyName: Flight
+    containerName: FlightL

@@ -71,6 +71,20 @@ namespace Universitet.ApplicationLayer.Services
             where TDto : PassengerDtoBase, new();
 
         /// <summary>
+        /// Создаёт новый объект.
+        /// </summary>
+        /// <param name="dto">DTO с данными нового объекта.</param>
+        /// <returns>Созданный объект.</returns>
+        Task<Passenger> Create(PassengerEDto dto);
+
+        /// <summary>
+        /// Обновляет существующий объект.
+        /// </summary>
+        /// <param name="dto">DTO с обновлёнными данными объекта.</param>
+        /// <returns>Обновлённый объект.</returns>
+        Task<Passenger> Update(PassengerEDto dto);
+
+        /// <summary>
         /// Удаляет объект.
         /// </summary>
         /// <param name="id">Уникальный идентификатор удаляемого объекта.</param>

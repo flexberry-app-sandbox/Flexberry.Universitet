@@ -1,0 +1,11 @@
+name: HelicopterL
+stereotype: «listform»
+description: Helicopter
+caption: Helicopter
+formViews:
+  - viewName: HelicopterL
+    viewClassName: Helicopter
+    dataObjectTypes:
+      - className: Helicopter
+        newContainerName: HelicopterE
+        editContainerName: HelicopterE

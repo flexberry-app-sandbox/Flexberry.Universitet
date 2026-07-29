@@ -1,0 +1,7 @@
+name: HelicopterE
+stereotype: «editform»
+description: Helicopter
+caption: Helicopter
+formViews:
+  - viewName: HelicopterE
+    viewClassName: Helicopter

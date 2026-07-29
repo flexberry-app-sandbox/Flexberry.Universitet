@@ -90,11 +90,12 @@ namespace Universitet.WebAPI.Controllers
         /// <param name="perPage">Элементов на странице.</param>
         /// <param name="page">Текущая страница.</param>
         /// <param name="sorting">Сортировка.</param>
+        /// <param name="filter">Фильтр.</param>
         /// <returns>Список объектов.</returns>
         [HttpGet("PassengerL")]
-        public async Task<ActionResult<GetAllRequestResult<PassengerLDto>>> GetAllPassengerL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null)
+        public async Task<ActionResult<GetAllRequestResult<PassengerLDto>>> GetAllPassengerL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null, [FromQuery] PassengerLFilterDto filter = null)
         {
-            return await GetAll<PassengerLDto>(perPage, page, sorting);
+            return await GetAll<PassengerLDto>(perPage, page, sorting, filter);
         }
 
         /// <summary>
@@ -116,6 +117,85 @@ namespace Universitet.WebAPI.Controllers
         public async Task<ActionResult<int>> GetCountPassengerL()
         {
             return await GetCount<PassengerLDto>();
+        }
+
+        /// <summary>
+        /// Создать новый Passenger в форме PassengerEDto.
+        /// </summary>
+        /// <param name="dto">DTO с данными для создания.</param>
+        /// <returns>Созданный <see cref="PassengerEDto"/>.</returns>
+        [HttpPost("PassengerE")]
+        public async Task<ActionResult<PassengerEDto>> CreatePassengerE([FromBody] PassengerEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Passenger created = await _passengerService.Create(dto);
+                PassengerEDto createdDto = new PassengerEDto(created);
+
+                return CreatedAtAction(nameof(GetByIdPassengerE), new { id = createdDto.Id }, createdDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при создании Passenger", ex);
+
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Обновить или создать Passenger в форме PassengerEDto.
+        /// </summary>
+        /// <param name="dto">DTO с новыми данными.</param>
+        /// <returns>Обновленный Passenger.</returns>
+        [HttpPut("PassengerE")]
+        public async Task<ActionResult<PassengerEDto>> UpdatePassengerE([FromBody] PassengerEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                PassengerEDto existed = await _passengerService.GetOrDefaultById<PassengerEDto>(dto.Id);
+                Passenger createdOrUpdated = new ();
+
+                if (existed == null)
+                {
+                    createdOrUpdated = await _passengerService.Create(dto);
+                }
+                else
+                {
+                    createdOrUpdated = await _passengerService.Update(dto);
+                }
+
+                PassengerEDto updatedDto = new (createdOrUpdated);
+
+                return Ok(updatedDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при обновлении Passenger", ex);
+
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>

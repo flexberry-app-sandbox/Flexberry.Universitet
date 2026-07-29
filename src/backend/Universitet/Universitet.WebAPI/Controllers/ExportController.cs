@@ -14,7 +14,12 @@ namespace Universitet.WebAPI.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Unity;
     using Universitet.ApplicationLayer.DTO;
+    using Universitet.ApplicationLayer.DTO.Aircraft;
+    using Universitet.ApplicationLayer.DTO.Airplane;
     using Universitet.ApplicationLayer.DTO.Airport;
+    using Universitet.ApplicationLayer.DTO.Flight;
+    using Universitet.ApplicationLayer.DTO.Helicopter;
+    using Universitet.ApplicationLayer.DTO.Passenger;
     using Universitet.ApplicationLayer.ExportProviders;
 
     /// <summary>
@@ -29,6 +34,76 @@ namespace Universitet.WebAPI.Controllers
         public ExportController(IUnityContainer container)
         {
             _container = container;
+        }
+
+        /// <summary>
+        /// Экспорт AircraftL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("AircraftL")]
+        public async Task<IActionResult> ExportAircraftL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] AircraftLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<AircraftDtoBase> provider = _container.Resolve<IExcelExportProvider<AircraftDtoBase>>("AircraftLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<AircraftLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "AircraftL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Экспорт AirplaneL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("AirplaneL")]
+        public async Task<IActionResult> ExportAirplaneL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] AirplaneLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<AirplaneDtoBase> provider = _container.Resolve<IExcelExportProvider<AirplaneDtoBase>>("AirplaneLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<AirplaneLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "AirplaneL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -59,6 +134,111 @@ namespace Universitet.WebAPI.Controllers
                     xlsx,
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     "AirportL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Экспорт FlightL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("FlightL")]
+        public async Task<IActionResult> ExportFlightL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] FlightLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<FlightDtoBase> provider = _container.Resolve<IExcelExportProvider<FlightDtoBase>>("FlightLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<FlightLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "FlightL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Экспорт HelicopterL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("HelicopterL")]
+        public async Task<IActionResult> ExportHelicopterL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] HelicopterLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<HelicopterDtoBase> provider = _container.Resolve<IExcelExportProvider<HelicopterDtoBase>>("HelicopterLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<HelicopterLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "HelicopterL.xlsx");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Экспорт PassengerL в Excel.
+        /// </summary>
+        /// <param name="sorting">Параметры сортировки.</param>
+        /// <param name="columns">JSON-массив имён видимых колонок для экспорта.</param>
+        /// <param name="filter">Фильтр списка.</param>
+        /// <returns>XLSX-файл с экспортированными данными.</returns>
+        [HttpGet("PassengerL")]
+        public async Task<IActionResult> ExportPassengerL(
+            [FromQuery] string[] sorting,
+            [FromQuery] string columns,
+            [FromQuery] PassengerLFilterDto filter)
+        {
+            string[] fieldNames = JsonSerializer.Deserialize<string[]>(columns ?? "[]") ?? Array.Empty<string>();
+            if (fieldNames.Length == 0)
+            {
+                return BadRequest("Не указаны колонки для экспорта.");
+            }
+
+            IExcelExportProvider<PassengerDtoBase> provider = _container.Resolve<IExcelExportProvider<PassengerDtoBase>>("PassengerLExportProvider");
+
+            try
+            {
+                byte[] xlsx = await provider.ExportAsync<PassengerLDto>(fieldNames, sorting, filter);
+                return File(
+                    xlsx,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "PassengerL.xlsx");
             }
             catch (Exception ex)
             {

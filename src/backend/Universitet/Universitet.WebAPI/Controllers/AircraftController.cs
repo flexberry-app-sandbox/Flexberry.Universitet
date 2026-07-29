@@ -90,11 +90,12 @@ namespace Universitet.WebAPI.Controllers
         /// <param name="perPage">Элементов на странице.</param>
         /// <param name="page">Текущая страница.</param>
         /// <param name="sorting">Сортировка.</param>
+        /// <param name="filter">Фильтр.</param>
         /// <returns>Список объектов.</returns>
         [HttpGet("AircraftL")]
-        public async Task<ActionResult<GetAllRequestResult<AircraftLDto>>> GetAllAircraftL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null)
+        public async Task<ActionResult<GetAllRequestResult<AircraftLDto>>> GetAllAircraftL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null, [FromQuery] AircraftLFilterDto filter = null)
         {
-            return await GetAll<AircraftLDto>(perPage, page, sorting);
+            return await GetAll<AircraftLDto>(perPage, page, sorting, filter);
         }
 
         /// <summary>
@@ -116,6 +117,85 @@ namespace Universitet.WebAPI.Controllers
         public async Task<ActionResult<int>> GetCountAircraftL()
         {
             return await GetCount<AircraftLDto>();
+        }
+
+        /// <summary>
+        /// Создать новый Aircraft в форме AircraftEDto.
+        /// </summary>
+        /// <param name="dto">DTO с данными для создания.</param>
+        /// <returns>Созданный <see cref="AircraftEDto"/>.</returns>
+        [HttpPost("AircraftE")]
+        public async Task<ActionResult<AircraftEDto>> CreateAircraftE([FromBody] AircraftEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Aircraft created = await _aircraftService.Create(dto);
+                AircraftEDto createdDto = new AircraftEDto(created);
+
+                return CreatedAtAction(nameof(GetByIdAircraftE), new { id = createdDto.Id }, createdDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при создании Aircraft", ex);
+
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Обновить или создать Aircraft в форме AircraftEDto.
+        /// </summary>
+        /// <param name="dto">DTO с новыми данными.</param>
+        /// <returns>Обновленный Aircraft.</returns>
+        [HttpPut("AircraftE")]
+        public async Task<ActionResult<AircraftEDto>> UpdateAircraftE([FromBody] AircraftEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                AircraftEDto existed = await _aircraftService.GetOrDefaultById<AircraftEDto>(dto.Id);
+                Aircraft createdOrUpdated = new ();
+
+                if (existed == null)
+                {
+                    createdOrUpdated = await _aircraftService.Create(dto);
+                }
+                else
+                {
+                    createdOrUpdated = await _aircraftService.Update(dto);
+                }
+
+                AircraftEDto updatedDto = new (createdOrUpdated);
+
+                return Ok(updatedDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при обновлении Aircraft", ex);
+
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>

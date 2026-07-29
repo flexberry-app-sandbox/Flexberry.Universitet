@@ -71,6 +71,20 @@ namespace Universitet.ApplicationLayer.Services
             where TDto : AircraftDtoBase, new();
 
         /// <summary>
+        /// Создаёт новый объект.
+        /// </summary>
+        /// <param name="dto">DTO с данными нового объекта.</param>
+        /// <returns>Созданный объект.</returns>
+        Task<Aircraft> Create(AircraftEDto dto);
+
+        /// <summary>
+        /// Обновляет существующий объект.
+        /// </summary>
+        /// <param name="dto">DTO с обновлёнными данными объекта.</param>
+        /// <returns>Обновлённый объект.</returns>
+        Task<Aircraft> Update(AircraftEDto dto);
+
+        /// <summary>
         /// Удаляет объект.
         /// </summary>
         /// <param name="id">Уникальный идентификатор удаляемого объекта.</param>

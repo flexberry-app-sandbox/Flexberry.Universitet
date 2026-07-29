@@ -20,7 +20,12 @@ namespace Universitet.WebAPI
     using Swashbuckle.AspNetCore.SwaggerUI;
     using Unity;
     using Unity.Lifetime;
+    using Universitet.ApplicationLayer.DTO.Aircraft;
+    using Universitet.ApplicationLayer.DTO.Airplane;
     using Universitet.ApplicationLayer.DTO.Airport;
+    using Universitet.ApplicationLayer.DTO.Flight;
+    using Universitet.ApplicationLayer.DTO.Helicopter;
+    using Universitet.ApplicationLayer.DTO.Passenger;
     using Universitet.ApplicationLayer.ExportProviders;
     using Universitet.ApplicationLayer.Helpers;
     using Universitet.ApplicationLayer.Services;
@@ -149,7 +154,12 @@ namespace Universitet.WebAPI
             container.RegisterType<IPassengerService, PassengerService>();
             container.RegisterType<ITicketService, TicketService>();
 
+            container.RegisterType<IExcelExportProvider<AircraftDtoBase>, AircraftLExportProvider>("AircraftLExportProvider");
+            container.RegisterType<IExcelExportProvider<AirplaneDtoBase>, AirplaneLExportProvider>("AirplaneLExportProvider");
             container.RegisterType<IExcelExportProvider<AirportDtoBase>, AirportLExportProvider>("AirportLExportProvider");
+            container.RegisterType<IExcelExportProvider<FlightDtoBase>, FlightLExportProvider>("FlightLExportProvider");
+            container.RegisterType<IExcelExportProvider<HelicopterDtoBase>, HelicopterLExportProvider>("HelicopterLExportProvider");
+            container.RegisterType<IExcelExportProvider<PassengerDtoBase>, PassengerLExportProvider>("PassengerLExportProvider");
 
             container.RegisterSingleton<IHttpContextAccessor, HttpContextAccessor>();
             container.RegisterSingleton<IUserSettingsService, UserSettingsService>();

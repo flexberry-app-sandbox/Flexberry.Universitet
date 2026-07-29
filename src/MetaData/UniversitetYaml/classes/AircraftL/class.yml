@@ -1,0 +1,11 @@
+name: AircraftL
+stereotype: «listform»
+description: Aircraft
+caption: Aircraft
+formViews:
+  - viewName: AircraftL
+    viewClassName: Aircraft
+    dataObjectTypes:
+      - className: Aircraft
+        newContainerName: AircraftE
+        editContainerName: AircraftE

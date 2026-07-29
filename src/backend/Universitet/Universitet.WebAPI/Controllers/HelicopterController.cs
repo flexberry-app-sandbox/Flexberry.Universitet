@@ -90,11 +90,12 @@ namespace Universitet.WebAPI.Controllers
         /// <param name="perPage">Элементов на странице.</param>
         /// <param name="page">Текущая страница.</param>
         /// <param name="sorting">Сортировка.</param>
+        /// <param name="filter">Фильтр.</param>
         /// <returns>Список объектов.</returns>
         [HttpGet("HelicopterL")]
-        public async Task<ActionResult<GetAllRequestResult<HelicopterLDto>>> GetAllHelicopterL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null)
+        public async Task<ActionResult<GetAllRequestResult<HelicopterLDto>>> GetAllHelicopterL(int? perPage = null, int? page = null, [FromQuery] string[] sorting = null, [FromQuery] HelicopterLFilterDto filter = null)
         {
-            return await GetAll<HelicopterLDto>(perPage, page, sorting);
+            return await GetAll<HelicopterLDto>(perPage, page, sorting, filter);
         }
 
         /// <summary>
@@ -116,6 +117,85 @@ namespace Universitet.WebAPI.Controllers
         public async Task<ActionResult<int>> GetCountHelicopterL()
         {
             return await GetCount<HelicopterLDto>();
+        }
+
+        /// <summary>
+        /// Создать новый Helicopter в форме HelicopterEDto.
+        /// </summary>
+        /// <param name="dto">DTO с данными для создания.</param>
+        /// <returns>Созданный <see cref="HelicopterEDto"/>.</returns>
+        [HttpPost("HelicopterE")]
+        public async Task<ActionResult<HelicopterEDto>> CreateHelicopterE([FromBody] HelicopterEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                Helicopter created = await _helicopterService.Create(dto);
+                HelicopterEDto createdDto = new HelicopterEDto(created);
+
+                return CreatedAtAction(nameof(GetByIdHelicopterE), new { id = createdDto.Id }, createdDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при создании Helicopter", ex);
+
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Обновить или создать Helicopter в форме HelicopterEDto.
+        /// </summary>
+        /// <param name="dto">DTO с новыми данными.</param>
+        /// <returns>Обновленный Helicopter.</returns>
+        [HttpPut("HelicopterE")]
+        public async Task<ActionResult<HelicopterEDto>> UpdateHelicopterE([FromBody] HelicopterEDto dto)
+        {
+            if (dto == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                HelicopterEDto existed = await _helicopterService.GetOrDefaultById<HelicopterEDto>(dto.Id);
+                Helicopter createdOrUpdated = new ();
+
+                if (existed == null)
+                {
+                    createdOrUpdated = await _helicopterService.Create(dto);
+                }
+                else
+                {
+                    createdOrUpdated = await _helicopterService.Update(dto);
+                }
+
+                HelicopterEDto updatedDto = new (createdOrUpdated);
+
+                return Ok(updatedDto);
+            }
+            catch (Exception ex) when (ex is ICSSoft.STORMNET.UnauthorizedAccessException or System.UnauthorizedAccessException)
+            {
+                return Forbid();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Ошибка при обновлении Helicopter", ex);
+
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>

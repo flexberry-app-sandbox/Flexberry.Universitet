@@ -71,6 +71,20 @@ namespace Universitet.ApplicationLayer.Services
             where TDto : HelicopterDtoBase, new();
 
         /// <summary>
+        /// Создаёт новый объект.
+        /// </summary>
+        /// <param name="dto">DTO с данными нового объекта.</param>
+        /// <returns>Созданный объект.</returns>
+        Task<Helicopter> Create(HelicopterEDto dto);
+
+        /// <summary>
+        /// Обновляет существующий объект.
+        /// </summary>
+        /// <param name="dto">DTO с обновлёнными данными объекта.</param>
+        /// <returns>Обновлённый объект.</returns>
+        Task<Helicopter> Update(HelicopterEDto dto);
+
+        /// <summary>
         /// Удаляет объект.
         /// </summary>
         /// <param name="id">Уникальный идентификатор удаляемого объекта.</param>

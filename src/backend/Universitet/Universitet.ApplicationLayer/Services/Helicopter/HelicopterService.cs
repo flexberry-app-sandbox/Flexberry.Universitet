@@ -167,6 +167,102 @@ namespace Universitet.ApplicationLayer.Services
             return _dataService.GetObjectsCount(lcs);
         }
 
+        /// <inheritdoc/>
+        public async Task<Helicopter> Create(HelicopterEDto dto)
+        {
+            if (dto == null)
+            {
+                LogService.LogError("Не передано DTO при создании Helicopter.");
+                throw new ArgumentNullException(nameof(dto));
+            }
+
+            if (dto.Id == Guid.Empty)
+            {
+                LogService.LogError("Id не может быть пустым при создании Helicopter.");
+                throw new ArgumentException("Id не может быть пустым при создании Helicopter.");
+            }
+
+            // *** Start programmer edit section *** (HelicopterE before create validation)
+
+
+            // *** End programmer edit section *** (HelicopterE before create validation)
+
+            Helicopter entity = new Helicopter();
+            entity.UpdateFromDto(dto);
+
+            List<DataObject> updatedObjects = new () { entity };
+
+            // *** Start programmer edit section *** (HelicopterE before create)
+
+
+            // *** End programmer edit section *** (HelicopterE before create)
+
+            try
+            {
+                if (updatedObjects.Count == 1)
+                {
+                    _dataService.UpdateObject(updatedObjects[0]);
+                }
+                else
+                {
+                    DataObject[] upd = updatedObjects.ToArray();
+                    _dataService.UpdateObjects(ref upd);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError("Произошла ошибка при создании Helicopter.", ex);
+                throw new Exception($"Произошла ошибка при создании Helicopter. {ex.Message}");
+            }
+
+            return await LoadExisting(dto.Id, DataViewAttribute.GetView<HelicopterEDto>());
+        }
+
+        /// <inheritdoc/>
+        public async Task<Helicopter> Update(HelicopterEDto dto)
+        {
+            if (dto == null)
+            {
+                LogService.LogError("Не передано DTO для обновления Helicopter.");
+                throw new ArgumentNullException(nameof(dto));
+            }
+
+            // *** Start programmer edit section *** (HelicopterE before update validation)
+
+
+            // *** End programmer edit section *** (HelicopterE before update validation)
+
+            Helicopter entity = await LoadExisting(dto.Id, DataViewAttribute.GetView<HelicopterEDto>());
+            entity.UpdateFromDto(dto);
+
+            List<DataObject> updatedObjects = new () { entity };
+
+            // *** Start programmer edit section *** (HelicopterE before update)
+
+
+            // *** End programmer edit section *** (HelicopterE before update)
+
+            try
+            {
+                if (updatedObjects.Count == 1)
+                {
+                    _dataService.UpdateObject(updatedObjects[0]);
+                }
+                else
+                {
+                    DataObject[] upd = updatedObjects.ToArray();
+                    _dataService.UpdateObjects(ref upd);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.LogError($"Произошла ошибка при обновлении Helicopter с Id {dto.Id}.", ex);
+                throw new Exception($"Произошла ошибка при обновлении Helicopter. {ex.Message}");
+            }
+
+            return await LoadExisting(dto.Id, DataViewAttribute.GetView<HelicopterEDto>());
+        }
+
         /// <summary>
         /// Получить список удаляемых объектов, в том числе связанных объектов, которые нужно удалить вместе с основным.
         /// Например детейлы, исторические данные и т.п.

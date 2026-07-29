@@ -1,0 +1,19 @@
+containers:
+  - className: AirportL
+    menuPath: Airtransfers
+    caption: Airport
+  - className: FlightL
+    menuPath: Airtransfers
+    caption: Flight
+  - className: PassengerL
+    menuPath: Airtransfers
+    caption: Passenger
+  - className: AircraftL
+    menuPath: Airtransfers
+    caption: Aircraft
+  - className: AirplaneL
+    menuPath: Airtransfers
+    caption: Airplane
+  - className: HelicopterL
+    menuPath: Airtransfers
+    caption: Helicopter

@@ -1,0 +1,7 @@
+name: FlightE
+stereotype: «editform»
+description: Flight
+caption: Flight
+formViews:
+  - viewName: FlightE
+    viewClassName: Flight

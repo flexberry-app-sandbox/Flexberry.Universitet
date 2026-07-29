@@ -1,0 +1,68 @@
+diagramType: CAD
+name: Airtransfers
+primitives:
+  - type: CADClass
+    caseName: AirportL
+    position: 450, 210
+    size: 87, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: FlightL
+    position: 450, 270
+    size: 87, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: PassengerL
+    position: 450, 330
+    size: 103, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: Airtransfers
+    position: 300, 150
+    size: 120, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AircraftL
+    position: 450, 390
+    size: 87, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AirplaneL
+    position: 450, 450
+    size: 90, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: PassengerE
+    position: 150, 330
+    size: 104, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: HelicopterE
+    position: 150, 510
+    size: 102, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: HelicopterL
+    position: 450, 510
+    size: 101, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AirportE
+    position: 150, 210
+    size: 92, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: FlightE
+    position: 150, 270
+    size: 92, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AircraftE
+    position: 150, 390
+    size: 92, 34
+    font: DejaVu Sans 9pt
+  - type: CADClass
+    caseName: AirplaneE
+    position: 150, 450
+    size: 92, 34
+    font: DejaVu Sans 9pt

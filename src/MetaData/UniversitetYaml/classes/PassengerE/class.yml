@@ -1,0 +1,7 @@
+name: PassengerE
+stereotype: «editform»
+description: Passenger
+caption: Passenger
+formViews:
+  - viewName: PassengerE
+    viewClassName: Passenger

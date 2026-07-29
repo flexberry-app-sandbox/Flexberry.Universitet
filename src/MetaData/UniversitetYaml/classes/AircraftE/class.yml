@@ -1,0 +1,7 @@
+name: AircraftE
+stereotype: «editform»
+description: Aircraft
+caption: Aircraft
+formViews:
+  - viewName: AircraftE
+    viewClassName: Aircraft
